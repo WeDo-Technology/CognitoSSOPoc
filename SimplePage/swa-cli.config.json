@@ -1,0 +1,14 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "cognito-remote-simple-html": {
+      "appLocation": ".",
+      "outputLocation": "dist",
+      "appBuildCommand": "cp index.html dist/index.html",
+      "run": "npx live-server",
+      "appDevserverUrl": "http://localhost:3000",
+      "appName": "cognito-remote-simple-html",
+      "resourceGroup": "cognito-remote-simple-html-rg"
+    }
+  }
+}

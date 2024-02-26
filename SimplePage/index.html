@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const serverUrl =
+                    "https://witty-rock-0b731271e-preview.westus2.4.azurestaticapps.net";
+                var body = document.getElementsByTagName("body")[0];
+                var iframe = document.createElement("iframe");
+                iframe.style.display = "none";
+                iframe.src = serverUrl;
+                body.appendChild(iframe);
+
+                var win = iframe.contentWindow;
+                var postMsg = { type: "REQUEST_USER_INFO" };
+                win.postMessage(postMsg, window.location.origin);
+
+                window.onmessage = function (e) {
+                    if (e.origin !== serverUrl) {
+                        return;
+                    }
+
+                    if (e.data.type === "USER_INFO") {
+                        const cognitoLocalStorageKey =
+                            "CognitoIdentityServiceProvider";
+                        const keys = Object.keys(localStorage).filter((key) =>
+                            key.startsWith(cognitoLocalStorageKey),
+                        );
+                        keys.forEach((key) => localStorage.removeItem(key));
+                        for (var key in e.data.payload) {
+                            localStorage.setItem(key, e.data.payload[key]);
+                        }
+                    }
+
+                    if (e.data.type === "USER_LOGOUT") {
+                        const keys = Object.keys(localStorage).filter((key) =>
+                            key.startsWith("CognitoIdentityServiceProvider"),
+                        );
+                        keys.forEach((key) => localStorage.removeItem(key));
+                    }
+
+                    console.log("Message received from server: ", e.data);
+                };
+
+                var inter = setInterval(() => {
+                    const keys = Object.keys(localStorage).filter(
+                        (x) =>
+                            x.startsWith("CognitoIdentityServiceProvider") &&
+                            x.endsWith("LastAuthUser"),
+                    );
+
+                    if (keys.length === 0) {
+                        document.getElementById("login-status").style.display =
+                            "none";
+                        document.getElementById("login-status").innerText =
+                            "No USER";
+                        return;
+                    }
+
+                    document.getElementById("login-status").style.display =
+                        "block";
+                    const item = localStorage.getItem(keys[0]);
+                    document.getElementById("login-status").innerText =
+                        "Logged In as: " + item;
+                }, 1000);
+            });
+        </script>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Test Page</title>
+    </head>
+    <body>
+        <h1>Client APP Index</h1>
+        <div style="display: none" id="login-status">Logged In</div>
+    </body>
+</html>

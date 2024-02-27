@@ -1,56 +1,19 @@
-# CognitoTests Project
+# CognitoTests Projects
 
-Welcome to the CognitoTests project, a collection of tests designed to ensure the reliability and effectiveness of our cognitive functionalities.
+This POC contains 3 seperate example projects and 1 main hub that demonstrate how to use AWS Cognito for user authentication. This approach is used just for demonstration purposes and should not be used in production.
 
-## Overview
+## Projects
+# 1. IdentityRelay
+This is basic project just gets window.message objecs saves them to local storage and then redirects to the client apps which they contain the relay in iframe.
 
-This project includes a variety of tests that cover different aspects of cognitive processes including memory, attention, perception, and problem solving.
+# 2. React Full
+This is a full react app that uses the AWS Amplify library to authenticate users and then display the user's information.
+> Note: This is the only project that the user able to log-in and log-out.
 
-## Getting Started
+# 3. React Mini
+This is a mini react app that uses the identity relay to see tokens and then display the user's information if the user logged-in.
 
-To get started with the CognitoTests project, follow the steps below:
+# 4. Simple Page
+This is a simple html page that uses the identity relay to see tokens and then display the user's information if the user logged-in. Created for legacy web applications such as ASP.NET MVC / WebForms, PHP, etc.
 
-### Prerequisites
-
-- Ensure you have a development environment ready for running the tests.
-- Verify that all necessary dependencies are installed.
-
-### Installation
-
-1. Clone the repository to your local machine:
-   ```shell
-   git clone https://github.com/your-username/CognitoTests.git
-   ```
-2. Navigate to the CognitoTests directory:
-   ```shell
-   cd CognitoTests
-   ```
-3. Install the project dependencies:
-   ```shell
-   npm install
-   ```
-
-### Running the Tests
-
-To run the tests, execute the following command:
-```shell
-npm test
-```
-
-## Contributing
-
-We welcome contributions to the CognitoTests project. If you're interested in helping expand or improve the tests, please follow these steps:
-
-1. Fork the repository.
-2. Create a new feature branch (`git checkout -b feature/YourFeature`).
-3. Commit your changes (`git commit -am 'Add some YourFeature'`).
-4. Push to the branch (`git push origin feature/YourFeature`).
-5. Create a new Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details.
-
-## Support
-
-If you encounter any problems or have queries about using the project, please raise an issue in the repository.
+![CognitoSSO](CognitoSSO.png)
